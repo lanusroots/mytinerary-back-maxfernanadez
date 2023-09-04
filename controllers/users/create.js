@@ -8,19 +8,15 @@ import User from "../../models/User.js"
 // PARAMS (parametros): suelen ser estáticos como el ID de una city a buscar
 // QUERIES (consultas): son opcionales y nos indican algunas consultas - filtros - modos de ver la info
 
-export default async (req, res) => {
-    try {
-      let newUser = await User.create(req.body)
+export default async (req, res, next) => {
+  try {
+    let newUser = await User.create(req.body)
     return res.status(201).json({
       success: true,
-      message: 'User created',
-      response: newUser._id
+      message: "User created",
+      response: newUser._id,
     })
-    } catch (err) {
-      return res.status(400).json({
-        success: false,
-        message: 'Not created',
-        response: null
-      })
-    }
+  } catch (err) {
+    next(err)
   }
+}
