@@ -7,11 +7,19 @@ export default async (req, res, next) => {
       req.body,
       { new: true }
     ).select("name price duration")
-    return res.status(200).json({
-      success: true,
-      message: "Itinerary updated",
-      response: updateItinerary,
-    })
+    if (updateItinerary) {
+      return res.status(200).json({
+        success: true,
+        messege: "Itinerary updated",
+        response: updateItinerary
+      })
+    } else {
+      return res.status(404).json({
+        success: false,
+        messege: "Itinerary not found",
+        response: null
+      })
+    }
   } catch (err) {
     next(err)
   }

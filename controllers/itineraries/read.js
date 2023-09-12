@@ -21,10 +21,10 @@ export default async (req, res, next) => {
       })
     return res.status(200).json({
       success: true,
-      message: "itineraries found",
+      message: "Itineraries found",
       response: allItineraries,
     })
-  } catch (error) {
-    next(error)
+  } catch (err) {
+    next(err)
   }
 }

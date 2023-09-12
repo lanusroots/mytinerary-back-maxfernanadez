@@ -5,11 +5,19 @@ export default async (req, res, next) => {
     let deleteActivity = await Activity.findByIdAndDelete(
       req.params.activity_id
     )
-    return res.status(200).json({
-      success: true,
-      message: "Activity deleted",
-      response: deleteActivity.name,
-    })
+    if (deleteActivity) {
+      return res.status(200).json({
+        success: true,
+        message: "Activity deleted",
+        response: deleteActivity.name
+      })
+    } else {
+      return res.status(404).json({
+        success: false,
+        message: "not found",
+        response: null
+      })
+    }
   } catch (err) {
     next(err)
   }
